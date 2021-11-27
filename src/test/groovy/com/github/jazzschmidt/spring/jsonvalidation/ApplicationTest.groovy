@@ -13,7 +13,7 @@ class ApplicationTest extends Specification {
 
     @SpringBootApplication
     @ComponentScan("com.github.jazzschmidt.spring.jsonvalidation")
-    static class SpringContext {}
+    protected static class SpringContext {}
 
     def "context starts"() {
         expect:
