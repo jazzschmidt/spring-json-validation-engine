@@ -1,11 +1,9 @@
 package com.github.jazzschmidt.spring.jsonvalidation;
 
-abstract public class Matcher<Definition> {
-
-    private final Class<Definition> definitionType;
+abstract public class Matcher<Definition> extends RuleSetComponent<Definition> {
 
     public Matcher(Class<Definition> definitionType) {
-        this.definitionType = definitionType;
+        super(definitionType);
     }
 
     /**
@@ -25,14 +23,11 @@ abstract public class Matcher<Definition> {
      * @return true if the JSON matches
      */
     public final boolean matchesObject(Object o, JsonWrapper json) {
-        if (!o.getClass().isAssignableFrom(definitionType)) {
+        if (!o.getClass().isAssignableFrom(getDefinitionType())) {
             throw new RuntimeException("Cannot match unsupported definition type " + getDefinitionType().getName());
         }
 
-        return matches(definitionType.cast(o), json);
+        return matches(getDefinitionType().cast(o), json);
     }
 
-    final protected Class<Definition> getDefinitionType() {
-        return definitionType;
-    }
 }
