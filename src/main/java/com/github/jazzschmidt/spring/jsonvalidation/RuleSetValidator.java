@@ -52,9 +52,7 @@ public class RuleSetValidator {
         try {
             for (Object definition : ruleSet.getValidators().entrySet()) {
                 // Retrieve all matching validators
-                List<Validator<?>> validators = this.validators.stream()
-                        .filter(r -> r.getDefinitionType() == definition.getClass())
-                        .collect(Collectors.toList());
+                List<Validator<?>> validators = filterComponents(definition.getClass(), this.validators);
 
                 for (Validator<?> validator : validators) {
                     // Validate!
@@ -77,9 +75,7 @@ public class RuleSetValidator {
     private boolean ruleSetMatches(RuleSet ruleSet, JsonWrapper json) {
         for (Object definition : ruleSet.getMatchers().entrySet()) {
             // Retrieve all matching matchers
-            List<Matcher<?>> matchers = this.matchers.stream()
-                    .filter(m -> m.getDefinitionType() == definition.getClass())
-                    .collect(Collectors.toList());
+            List<Matcher<?>> matchers = filterComponents(definition.getClass(), this.matchers);
 
             boolean match = matchers.stream()
                     .allMatch(m -> m.matchesObject(definition, json));
@@ -92,5 +88,12 @@ public class RuleSetValidator {
 
         // Validate every JSON when no matcher is configured
         return true;
+    }
+
+    private <Component extends RuleSetComponent<?>> List<Component> filterComponents(Class<?> definitionType,
+                                                                                     Set<Component> components) {
+        return components.stream()
+                .filter(component -> component.getDefinitionType().isAssignableFrom(definitionType))
+                .collect(Collectors.toList());
     }
 }
