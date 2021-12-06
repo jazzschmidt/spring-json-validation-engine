@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "JSON validation rules schema",
+  "type": "object",
+  "definitions": {
+    "field-equals-rule": {
+      "description": "Validates that a specific value is present at a JSON path",
+      "required": [
+        "id",
+        "jsonPath",
+        "value"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "const": "field-equals-rule"
+        },
+        "jsonPath": {
+          "description": "JSON Path of the property that shall hold the value of `value`",
+          "type": "string"
+        },
+        "value": {
+          "description": "Value that shall be present in `jsonPath`"
+        }
+      }
+    },
+    "field-not-empty-rule": {
+      "description": "Validates that a JSON path is non-empty",
+      "required": [
+        "id",
+        "jsonPath"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "const": "field-not-empty-rule"
+        },
+        "jsonPath": {
+          "description": "JSON Path of the property that shall hold any value other than null",
+          "type": "string"
+        }
+      }
+    },
+    "field-not-equals-rule": {
+      "description": "Validates that a specific value is not present at a JSON path",
+      "required": [
+        "id",
+        "jsonPath",
+        "value"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "const": "field-not-equals-rule"
+        },
+        "jsonPath": {
+          "description": "JSON Path of the property that should not hold the value of `value`",
+          "type": "string"
+        },
+        "value": {
+          "description": "Value that should not be present in `jsonPath`"
+        }
+      }
+    },
+    "rules": {
+      "type": "object",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/field-equals-rule"
+        },
+        {
+          "$ref": "#/definitions/field-not-empty-rule"
+        },
+        {
+          "$ref": "#/definitions/field-not-equals-rule"
+        }
+      ]
+    }
+  }
+}

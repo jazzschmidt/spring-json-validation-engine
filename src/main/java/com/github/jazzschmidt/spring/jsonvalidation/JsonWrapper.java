@@ -11,12 +11,13 @@ import java.util.Map;
  * Wrapper for convenient retrieval of lazy-generated views of the JSON object.
  */
 public final class JsonWrapper {
-    private final ObjectMapper objectMapper;
-    private final TypeReference<Map<String, Object>> mapReference = new TypeReference<>() {
-    };
     private JsonNode jsonNode;
     private Map<String, Object> jsonMap;
     private String jsonText;
+
+    private final ObjectMapper objectMapper;
+    private final TypeReference<Map<String, Object>> mapReference = new TypeReference<>() {
+    };
 
     public JsonWrapper(JsonNode jsonNode) {
         this(new ObjectMapper(), jsonNode);
@@ -76,4 +77,5 @@ public final class JsonWrapper {
 
         return jsonText;
     }
+
 }

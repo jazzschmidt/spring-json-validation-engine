@@ -1,16 +1,27 @@
 package com.github.jazzschmidt.spring.jsonvalidation;
 
-abstract public class RuleSetComponent<Definition> {
+import com.jayway.jsonpath.Configuration;
+import com.jayway.jsonpath.JsonPath;
+import com.jayway.jsonpath.Option;
+import org.springframework.lang.Nullable;
 
-    private final Class<Definition> definitionType;
+/**
+ * Base class of the JSON Validation {@link Matcher}s and {@link Validator}s.
+ */
+abstract public class RuleSetComponent {
 
-    public RuleSetComponent(Class<Definition> definitionType) {
-        this.definitionType = definitionType;
-    }
+    /**
+     * Retrieve a value from the given JSON that can be nullable.
+     *
+     * @param jsonPath JSON path
+     * @param json     JSON
+     * @return its value or null
+     */
+    @Nullable
+    protected Object readJsonPath(String jsonPath, JsonWrapper json) {
+        Configuration config = Configuration.defaultConfiguration().
+                setOptions(Option.SUPPRESS_EXCEPTIONS);
 
-    abstract protected String name();
-
-    final protected Class<Definition> getDefinitionType() {
-        return definitionType;
+        return JsonPath.using(config).parse(json.getJsonMap()).read(jsonPath);
     }
 }

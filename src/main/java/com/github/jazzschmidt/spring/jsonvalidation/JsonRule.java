@@ -15,14 +15,12 @@ public @interface JsonRule {
 
     /**
      * Id of the rule
-     *
      * @return unique id
      */
     String value();
 
     /**
      * Description of this rule
-     *
      * @return descriptive text
      */
     String description() default "";

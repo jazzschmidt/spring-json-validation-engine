@@ -1,0 +1,17 @@
+{
+  "name": "hallo",
+  "description": "123456",
+  "matchers": [
+    {
+      "id": "fields",
+      "name": "abcdef"
+    }
+  ],
+  "rules": [
+    {
+      "id": "field-equals-rule",
+      "jsonPath": "$.description",
+      "value": "hello world"
+    }
+  ]
+}

@@ -6,6 +6,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
+/**
+ * Pending feature
+ */
 @Component
 public class JsonWrapperFactory {
 

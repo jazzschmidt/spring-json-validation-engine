@@ -1,18 +1,23 @@
 package com.github.jazzschmidt.spring.jsonvalidation;
 
-abstract public class Validator<Definition> extends RuleSetComponent<Definition> {
+abstract public class Validator<DefinitionType> extends RuleSetComponent {
+    private final Class<DefinitionType> targetType;
 
-    public Validator(Class<Definition> definitionType) {
-        super(definitionType);
+    protected Validator(Class<DefinitionType> targetType) {
+        this.targetType = targetType;
     }
 
-    abstract protected void apply(Definition definition, JsonWrapper json) throws JsonValidationException;
+    abstract protected void apply(DefinitionType definition, JsonWrapper json) throws RuleValidationException;
 
-    public final void applyObject(Object o, JsonWrapper json) throws JsonValidationException {
-        if (!o.getClass().isAssignableFrom(getDefinitionType())) {
-            throw new RuntimeException("Cannot match unsupported definition type " + getDefinitionType().getName());
+    public final void applyObject(Object o, JsonWrapper json) throws RuleValidationException {
+        if (o.getClass() != getTargetType()) {
+            throw new RuntimeException("Cannot match unsupported target type " + getTargetType().getName());
         }
 
-        apply(getDefinitionType().cast(o), json);
+        apply((DefinitionType) o, json);
+    }
+
+    public final Class<DefinitionType> getTargetType() {
+        return targetType;
     }
 }

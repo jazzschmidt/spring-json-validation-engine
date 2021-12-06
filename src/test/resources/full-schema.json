@@ -1,0 +1,110 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://localhost/jsonvalidation/schema",
+  "title": "JSON validation rules schema",
+  "type": "object",
+  "required": [
+    "name",
+    "description",
+    "matchers",
+    "rules"
+  ],
+  "definitions": {
+    "rules": {
+      "rule-field-equals-rule": {
+        "required": [
+          "jsonPath",
+          "value",
+          "id"
+        ],
+        "properties": {
+          "jsonPath": {
+            "type": "string"
+          },
+          "value": {},
+          "id": {
+            "type": "string",
+            "const": "field-equals-rule"
+          }
+        }
+      },
+      "rule": {
+        "type": "object",
+        "oneOf": [
+          {
+            "$ref": "#/definitions/rules/rule-field-equals-rule"
+          }
+        ]
+      }
+    },
+    "matchers": {
+      "matcher-field-equals-matcher": {
+        "required": [
+          "jsonPath",
+          "value",
+          "id"
+        ],
+        "properties": {
+          "jsonPath": {
+            "type": "string"
+          },
+          "value": {},
+          "id": {
+            "type": "string",
+            "const": "field-equals-matcher"
+          }
+        }
+      },
+      "matcher-or-matcher": {
+        "required": [
+          "one",
+          "two",
+          "id"
+        ],
+        "properties": {
+          "one": {},
+          "two": {},
+          "id": {
+            "type": "string",
+            "const": "or-matcher"
+          }
+        }
+      },
+      "matcher": {
+        "type": "object",
+        "oneOf": [
+          {
+            "$ref": "#/definitions/matchers/matcher-field-equals-matcher"
+          },
+          {
+            "$ref": "#/definitions/matchers/matcher-or-matcher"
+          }
+        ]
+      }
+    }
+  },
+  "properties": {
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "description": {
+      "title": "Description",
+      "type": "string"
+    },
+    "matchers": {
+      "title": "Matchers",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/matchers/matcher"
+      }
+    },
+    "rules": {
+      "title": "Rules",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/rules/rule"
+      }
+    }
+  }
+}

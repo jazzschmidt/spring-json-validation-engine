@@ -1,6 +1,5 @@
 package com.github.jazzschmidt.spring.jsonvalidation;
 
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -16,14 +15,12 @@ public @interface JsonMatcher {
 
     /**
      * Id of the matcher
-     *
      * @return unique id
      */
     String value();
 
     /**
      * Description of this matcher
-     *
      * @return descriptive text
      */
     String description() default "";

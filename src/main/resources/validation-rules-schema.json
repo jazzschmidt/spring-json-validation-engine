@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "{{ URL }}",
+  "title": "JSON validation rules schema",
+  "type": "object",
+  "required": [
+    "name",
+    "description",
+    "matchers",
+    "rules"
+  ],
+  "definitions": {},
+  "properties": {
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "description": {
+      "title": "Description",
+      "type": "string"
+    },
+    "matchers": {
+      "title": "Matchers",
+      "type": "array",
+      "items": {
+        "$ref": "{{ URL }}/matchers#/definitions/matcher"
+      }
+    },
+    "rules": {
+      "title": "Rules",
+      "type": "array",
+      "items": {
+        "$ref": "{{ URL }}/rules#/definitions/rule"
+      }
+    }
+  }
+}
