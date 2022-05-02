@@ -62,11 +62,11 @@ add them to the `RuleSetRepository` or directly to the `RuleSetValidator`. By do
 those RuleSets are not exposed and cannot be managed via REST.
 
 ```java
-import de.otto.angebot.jsonvalidation.RuleSet;
-import de.otto.angebot.jsonvalidation.RuleSetBuilder;
-import de.otto.angebot.jsonvalidation.RuleSetValidator;
+import com.github.jazzschmidt.spring.jsonvalidation.RuleSet;
+import com.github.jazzschmidt.spring.jsonvalidation.RuleSetBuilder;
+import com.github.jazzschmidt.spring.jsonvalidation.RuleSetValidator;
 
-import static de.otto.angebot.jsonvalidation.RuleSetBuilder.DefinitionsSupplier.*;
+import static com.github.jazzschmidt.spring.jsonvalidation.RuleSetBuilder.DefinitionsSupplier.*;
 
 @Configuration
 class RuleSetConfiguration {
